@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: >
+      Customer dimension with lifetime order metrics.
+      One row per customer. Used for customer segmentation and LTV reporting.
+    columns:
+      - name: customer_id
+        description: 'Unique customer identifier (PK)'
+      - name: first_name
+        description: 'Customer first name'
+      - name: last_name
+        description: 'Customer last name'
+      - name: first_order_date
+        description: 'Date of the first order placed by this customer'
+      - name: most_recent_order_date
+        description: 'Date of the most recent order'
+      - name: number_of_orders
+        description: 'Total count of orders placed by this customer'
+      - name: lifetime_value
+        description: 'Total amount paid across all orders in dollars'
+
+  - name: fct_orders
+    description: >
+      Order fact table. One row per order.
+      Enriched with customer names from stg_customers.
+    columns:
+      - name: order_id
+        description: 'Unique order identifier (PK)'
+      - name: customer_id
+        description: 'Customer identifier (FK)'
+      - name: first_name
+        description: 'Customer first name (from stg_customers)'
+      - name: last_name
+        description: 'Customer last name (from stg_customers)'
+      - name: order_date
+        description: 'Date the order was placed'
+      - name: status
+        description: 'Order fulfillment status'
+      - name: total_amount
+        description: 'Total amount paid for this order in dollars'

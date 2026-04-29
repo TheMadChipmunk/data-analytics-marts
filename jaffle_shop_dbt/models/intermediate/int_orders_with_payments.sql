@@ -18,8 +18,8 @@ int_orders_with_payments AS (
         orders.customer_id,
         orders.order_date,
         orders.status,
-        COALESCE(payments.payment_count, 0)  AS payment_count,
-        COALESCE(payments.total_amount, 0)   AS total_amount
+        payments.payment_count AS payment_count,
+        payments AS total_amount
     FROM orders
     LEFT JOIN payments ON orders.order_id = payments.order_id
     -- LEFT JOIN : garder TOUTES les commandes, même sans paiement
